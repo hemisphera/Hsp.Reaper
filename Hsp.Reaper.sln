@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hsp.Reaper", "Hsp.Reaper\Hsp.Reaper.csproj", "{263E05B7-EEC1-4844-B4C6-B38B28466247}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hsp.Reaper.Test", "Hsp.Reaper.Test\Hsp.Reaper.Test.csproj", "{12C09319-664D-42D3-A72C-156F75642315}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{263E05B7-EEC1-4844-B4C6-B38B28466247}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{263E05B7-EEC1-4844-B4C6-B38B28466247}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{263E05B7-EEC1-4844-B4C6-B38B28466247}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{263E05B7-EEC1-4844-B4C6-B38B28466247}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12C09319-664D-42D3-A72C-156F75642315}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12C09319-664D-42D3-A72C-156F75642315}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12C09319-664D-42D3-A72C-156F75642315}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12C09319-664D-42D3-A72C-156F75642315}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
