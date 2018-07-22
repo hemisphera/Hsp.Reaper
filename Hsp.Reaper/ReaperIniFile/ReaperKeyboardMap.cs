@@ -24,7 +24,7 @@ namespace Hsp.Reaper
         .Where(at => !String.IsNullOrEmpty(at.Tag))
         .ToDictionary(at => at.Tag, at => at.Type);
 
-    private static string GetDefaultFilename()
+    public static string GetDefaultFilename()
     {
       return Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),

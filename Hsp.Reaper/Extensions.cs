@@ -12,9 +12,16 @@ namespace Hsp.Reaper
 
     public static string GetWord(this IEnumerable<char> str)
     {
-      string newString = String.Concat(str).Trim();
-      return String.Concat(newString.TakeWhile(f => { return f != ' '; }));
+      var newString = string.Concat(str).Trim();
+      return String.Concat(newString.TakeWhile(f => f != ' '));
     }
+
+    public static string SkipWord(this string line)
+    {
+      var word = line.GetWord();
+      return String.Concat(line.Skip(word.Length + 1));
+    }
+
 
     public static string Unenclose(this string str, string delimiter = "\"")
     {
@@ -59,6 +66,28 @@ namespace Hsp.Reaper
         parts.Add(currPart);
 
       return parts.ToArray();
+    }
+
+    public static IEnumerable<T> ForEach<T>(this IEnumerable<T> source, Action<T> action)
+    {
+      foreach (var item in source)
+      {
+        action(item);
+        yield return item;
+      }
+    }
+
+
+    public static void AssertItem<T>(this IEnumerable<T> items, T item)
+    {
+      if (!items.First().Equals(item))
+        throw new FormatException($"The first item must be '{item}'.");
+    }
+
+    public static void Fill<T>(this IList<T> list, int length, T item)
+    {
+      while (list.Count < length)
+        list.Add(item);
     }
 
   }

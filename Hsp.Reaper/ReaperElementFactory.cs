@@ -8,51 +8,58 @@ using Hsp.Reaper.Elements;
 namespace Hsp.Reaper
 {
 
-  internal class ReaperElementFactory
+  public class ElementFactory
   {
-    Dictionary<string, Type> elements;
 
-    public ReaperElementFactory()
+    private static ElementFactory _instance;
+
+    public static ElementFactory Instance => _instance ?? (_instance = new ElementFactory());
+
+
+    public event EventHandler<ElementCreateRequestArgs> ElementCreateRequested;
+
+
+    public Dictionary<string, Type> ElementTypes { get; }
+
+
+    private ElementFactory()
     {
-      elements = new Dictionary<string, Type>();
+      ElementTypes = new Dictionary<string, Type>();
 
-      this.GetType().Assembly.GetTypes().
-      Select(
-        t =>
+      var items = this.GetType().Assembly.GetTypes()
+        .Select(t =>
         {
-          if (t.IsAbstract || !t.IsSubclassOf(typeof(ReaperElement)))
-            return null;
-          ReaperElementNameAttr attr = t.GetCustomAttributes(true).OfType<ReaperElementNameAttr>().FirstOrDefault();
-          if (attr == null)
-            return null;
+          var attr = t.GetCustomAttribute<ReaperElementAttribute>();
+          if (attr == null) return null;
+          return new
+          {
+            AttributeName = attr.Name,
+            Type = t
+          };
+        }).Where(t => t != null);
 
-          return new Tuple<string, Type>(attr.ElementName, t);
-        }).
-      ToList().
-      ForEach(
-        itm =>
-        {
-          if (itm != null)
-            elements.Add(itm.Item1, itm.Item2);
-        });
+      foreach (var item in items)
+        ElementTypes.Add(item.AttributeName, item.Type);
     }
 
-    public ReaperElement CreateElement(ReaperElement parent, string elementName)
-    {
-      if (elementName.StartsWith("<"))
-        elementName = String.Concat(elementName.GetWord().Skip(1));
 
-      if (!elements.ContainsKey(elementName))
-        return new ReaperElement(parent, elementName);
+    public ElementBase CreateElement(string elementName)
+    {
+      var args = new ElementCreateRequestArgs(elementName);
+      ElementBase element;
+
+      var type = ElementTypes.ContainsKey(elementName) ? ElementTypes[elementName] : null;
+      if (type != null)
+        element = (ElementBase) Activator.CreateInstance(type);
       else
-        return
-          (ReaperElement)Activator.CreateInstance(
-            elements[elementName],
-            BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance,
-            null,
-            new object[] { parent },
-            null);
+      {
+        ElementCreateRequested?.Invoke(this, args);
+        element = args.Element;
+      }
+
+      return element ?? new GenericElement();
     }
 
   }
+
 }

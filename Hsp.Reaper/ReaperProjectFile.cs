@@ -13,46 +13,61 @@ namespace Hsp.Reaper
   public static class ReaperProjectFile
   {
 
-    public static ReaperProject Load(String filename)
+    public static ProjectElement Load(String filename)
     {
       using (FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read))
         return Load(fs);
     }
-    public static ReaperProject Load(Stream s)
+
+    public static ProjectElement Load(Stream s)
     {
-      ReaperElementFactory factory = new ReaperElementFactory();
-      ReaperElement currElement = null;
-      List<ReaperElement> elements = new List<ReaperElement>();
+      var factory = ElementFactory.Instance;
+      var elements = new List<ElementBase>();
 
-      using (StreamReader sr = new StreamReader(s))
-        while (!sr.EndOfStream)
-        {
-          var line = sr.ReadLine();
-          if (!String.IsNullOrEmpty(line))
+      using (var sr = new StreamReader(s))
+      {
+        var currLine = "";
+        while (String.IsNullOrEmpty(currLine))
+          currLine = sr.ReadLine();
+        var projectElement = new ProjectElement(currLine);
+        projectElement.Read(sr);
+        return projectElement;
+      }
+
+      /*
+      line = line.TrimStart();
+
+          var isNewFx =
+            line.StartsWith("BYPASS") &&
+            currElement != null &&
+            currElement.ElementName == "FXCHAIN";
+
+          var startNewElement =
+            line.StartsWith("<") ||
+            isNewFx;
+
+          if (startNewElement)
           {
-            bool isNewFx =
-              line.StartsWith("BYPASS") &&
-              (currElement != null) &&
-              (currElement.ElementName == "FXCHAIN");
-
-            if (line.StartsWith("<") || isNewFx)
+            if (isNewFx)
+              currElement = currElement.ParentElement;
+            if (currElementContent != null)
             {
-              if (isNewFx)
-                currElement = currElement.ParentElement;
-              currElement = factory.CreateElement(currElement, line);
+              currElement = factory.CreateElement(currElement, currElementContent.ToString());
               elements.Add(currElement);
             }
-            currElement.Source.AppendLine(line);
-            if (line.StartsWith(">"))
-              currElement = currElement.ParentElement;
+            currElementContent = new StringBuilder();
           }
+
+          currElementContent?.AppendLine(line);
+          if (line.StartsWith(">"))
+            currElement = currElement?.ParentElement;
         }
 
-      elements.ForEach(e => { e.Parse(); });
-
-      ReaperElement rootElement = elements[0];
-      return rootElement as ReaperProject;
+      var rootElement = elements[0];
+      return rootElement as ProjectElement;
+    */
     }
 
   }
+
 }

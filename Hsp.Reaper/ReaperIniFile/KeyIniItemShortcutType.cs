@@ -61,7 +61,7 @@ namespace Hsp.Reaper
     }
 
 
-    private KeyIniItemShortcutType()
+    public KeyIniItemShortcutType()
     {
     }
 

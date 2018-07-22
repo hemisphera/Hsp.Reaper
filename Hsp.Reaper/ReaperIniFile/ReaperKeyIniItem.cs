@@ -4,7 +4,7 @@ namespace Hsp.Reaper
 {
 
   [ReaperIniItem("KEY")]
-  internal class ReaperKeyIniItem : IReaperIniItem
+  public class ReaperKeyIniItem : IReaperIniItem
   {
 
     public KeyIniItemShortcutType ShortcutType { get; set; }

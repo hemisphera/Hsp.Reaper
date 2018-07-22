@@ -5,7 +5,7 @@ namespace Hsp.Reaper
 {
 
   [ReaperIniItem("SCR")]
-  internal class ReaperScriptIniItem : IReaperIniItem
+  public class ReaperScriptIniItem : IReaperIniItem
   {
 
     public SectionValidityEnum Validity { get; set; }
@@ -17,6 +17,12 @@ namespace Hsp.Reaper
     public string Description { get; set; }
 
     public string ScriptPath { get; set; }
+
+
+    public ReaperScriptIniItem()
+    {
+      Unknown1 = 4;
+    }
 
 
     public void Deserialize(string str)

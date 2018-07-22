@@ -12,7 +12,7 @@ namespace Hsp.Reaper
   {
     static void Main(string[] args)
     {
-      ReaperProject rpp = ReaperProjectFile.Load(@"C:\Private\Dropbox\UKoG\UKoG Share\Vargorok\Comp.RPP");
+      var rpp = ReaperProjectFile.Load(@"E:\OneDrive\Hemisphera\Hunter DDP\Hunter DDP - CD.rpp");
       Console.WriteLine(rpp.ReaperVersion);
       foreach (var track in rpp.Tracks)
         Console.WriteLine(track.Name);
