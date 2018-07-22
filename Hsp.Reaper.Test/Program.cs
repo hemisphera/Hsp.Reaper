@@ -12,11 +12,6 @@ namespace Hsp.Reaper
   {
     static void Main(string[] args)
     {
-      var rpp = ReaperProjectFile.Load(@"E:\OneDrive\Hemisphera\Hunter DDP\Hunter DDP - CD.rpp");
-      Console.WriteLine(rpp.ReaperVersion);
-      foreach (var track in rpp.Tracks)
-        Console.WriteLine(track.Name);
-      Console.ReadLine();
     }
   }
 }

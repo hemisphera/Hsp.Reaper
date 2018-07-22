@@ -50,6 +50,11 @@ namespace Hsp.Reaper.Elements
       set => GetProperty("FX").SetBool(value);
     }
 
+    public TrackTimebase Timebase
+    {
+      get => (TrackTimebase) GetProperty("BEAT").GetInt();
+    }
+
     public IEnumerable<MediaItem> MediaItems => ChildElements.OfType<MediaItem>();
 
     public FxChain FxChain => ChildElements.OfType<FxChain>().FirstOrDefault();

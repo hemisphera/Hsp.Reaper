@@ -156,6 +156,13 @@ namespace Hsp.Reaper.Elements
     }
 
 
+    public T GetParent<T>() where T : ElementBase
+    {
+      if (ParentElement is T parent)
+        return parent;
+      return ParentElement?.GetParent<T>();
+    }
+
     public IEnumerable<ElementBase> GetElements()
     {
       return GetElements(e => true);

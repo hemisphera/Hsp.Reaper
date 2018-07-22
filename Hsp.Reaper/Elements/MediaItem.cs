@@ -46,6 +46,8 @@ namespace Hsp.Reaper.Elements
       set => GetProperty("IGUID").SetString(value.ToString());
     }
 
+    public TrackTimebase Timebase => GetParent<Track>().Timebase;
+
 
     public override string ToString()
     {

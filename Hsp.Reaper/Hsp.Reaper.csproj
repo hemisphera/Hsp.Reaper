@@ -78,6 +78,7 @@
     <Compile Include="ReaperIniFile\ReaperKeyIniItem.cs" />
     <Compile Include="ReaperIniFile\ReaperUnknownIniItem.cs" />
     <Compile Include="ReaperProjectFile.cs" />
+    <Compile Include="TrackTimebase.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
